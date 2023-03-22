@@ -10,6 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 storage_type = getenv('HBNB_TYPE_STORAGE')
 
+
 class BaseModel:
     """A base class for all hbnb models"""
     id = Column(String(60), primary_key=True, nullable=False)
@@ -36,11 +37,13 @@ class BaseModel:
                     setattr(self, 'created_at', datetime.now())
                 if not hasattr(kwargs, 'updated_at'):
                     setattr(self, 'updated_at', datetime.now())
+
     def __str__(self):
         """Returns a string representation of the instance"""
         dictionary = self.__dict__.copy()
         dictionary.pop("_sa_instance_state", None)
         return f'[{self.__class__.__name__}] ({self.id}) {dictionary}'
+
     def save(self):
         """Updates updated_at with current time when instance is changed"""
         from models import storage
