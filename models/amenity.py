@@ -8,4 +8,4 @@ from sqlalchemy.orm import relationship
 class Amenity(BaseModel, Base):
     """A class that creates different amenities"""
     __tablename__ = 'amenities'
-    name = Column(String(128), nullable=False)  
+    name = Column(String(128), nullable=False)
