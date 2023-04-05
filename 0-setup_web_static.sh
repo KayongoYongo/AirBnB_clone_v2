@@ -13,14 +13,16 @@ sudo mkdir -p /data/web_static/shared/
 echo "Holberton School" > /data/web_static/releases/test/index.html
 
 #Create a symbolic link. If it exists, it should be deleted and recreated.
-sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo ln -sf '/data/web_static/releases/test/' '/data/web_static/current'
 
 #Change the owner and the group of the data folder
 sudo chown -R ubuntu /data/
 sudo chgrp -R ubuntu /data/
 
 #update nginx configuration
-sudo sed -i '/server_name _;/a \ \tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t}\n' /etc/nginx/sites-available/default
+sudo printf "location /hbnb_static {
+    alias /data/web_static/current/;
+}\n" | sudo tee /etc/nginx/sites-available/default >/dev/null
 
 #Restart nginx
 sudo service nginx restart
