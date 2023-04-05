@@ -13,7 +13,12 @@ sudo mkdir -p /data/web_static/shared/
 echo "Holberton School" > /data/web_static/releases/test/index.html
 
 #Create a symbolic link. If it exists, it should be deleted and recreated.
-sudo ln -sf '/data/web_static/releases/test/' '/data/web_static/current'
+# Delete the symbolic link if it exists
+if [ -L "/data/web_static/current" ]; then
+    sudo rm /data/web_static/current
+fi
+
+sudo ln -s /data/web_static/releases/test/ /data/web_static/current
 
 #Change the owner and the group of the data folder
 sudo chown -R ubuntu /data/
