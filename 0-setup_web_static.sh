@@ -10,22 +10,20 @@ sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
 #create a fake HTML file with simple content
-echo "Holberton School" > /data/web_static/releases/test/index.html
+echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 
 #Create a symbolic link. If it exists, it should be deleted and recreated.
-if [ -L "/data/web_static/current" ]; then
-    sudo rm /data/web_static/current
-else
-    sudo ln -s /data/web_static/releases/test/ /data/web_static/current
-fi
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 #Change the owner and the group of the data folder
 sudo chown -R ubuntu /data/
 sudo chgrp -R ubuntu /data/
 
 #update nginx configuration
-sudo printf "location /hbnb_static {
-    alias /data/web_static/current/;
+sudo printf "server {
+	location /hbnb_static {
+		alias /data/web_static/current/;
+	}
 }\n" | sudo tee /etc/nginx/sites-available/default >/dev/null
 
 #Restart nginx
