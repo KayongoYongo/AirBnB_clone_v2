@@ -10,7 +10,14 @@ sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
 #create a fake HTML file with simple content
-echo "Holberton School" > /data/web_static/releases/test/index.html
+echo "<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>" | sudo tee /data/web_static/releases/test/index.html
 
 #Create a symbolic link. If it exists, it should be deleted and recreated.
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
