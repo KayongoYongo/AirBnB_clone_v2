@@ -6,8 +6,8 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 #Create the directories even if they don't exist
-mkdir -p /data/web_static/releases/test/
-mkdir -p /data/web_static/shared/
+sudo mkdir -p /data/web_static/releases/test/
+sudo mkdir -p /data/web_static/shared/
 
 #create a fake HTML file with simple content
 echo "Holberton School" > /data/web_static/releases/test/index.html
@@ -16,10 +16,13 @@ echo "Holberton School" > /data/web_static/releases/test/index.html
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 #Change the owner and the group of the data folder
-chown -R ubuntu /data/
-chgrp -R ubuntu /data/
+sudo chown -R ubuntu /data/
+sudo chgrp -R ubuntu /data/
 
 #update nginx configuration
+sudo printf %s "location /hbnb_static {
+		alias /data/web_static/current/;
+}\n" | sudo tee /etc/nginx/sites-available/default >/dev/null
 
 #Restart nginx
-service nginx restart
+sudo service nginx restart
