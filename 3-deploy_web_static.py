@@ -11,26 +11,26 @@ env.user = 'ubuntu'
 
 
 def do_pack():
-    # Implementation of do_pack function here
+    """Archives the static files."""
     time_stamp = datetime.now().strftime("%Y%m%d%H%M%S")
 
     file_path = "versions/web_static_{}.tgz".format(time_stamp)
 
     try:
-        """create a directory called versions"""
+        # create a directory called versions
         local("mkdir -p versions")
 
-        """create an archive file"""
+        # create an archive file"""
         local("tar -cvzf {} web_static/".format(file_path))
 
-        """create a compressed archive of the "web_static" directory"""
+        # create a compressed archive of the "web_static" directory"""
         local("tar -czvf {} web_static".format(file_path))
 
-        """Generate file path if generated correctly"""
+        # Generate file path if generated correctly"""
         return file_path
 
     except Exception as e:
-        """If the file generation was not successful"""
+        # If the file generation was not successful"""
         return None
 
 
@@ -80,7 +80,8 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    # call do_pack and get the path of the created archive
+    """call do_pack and get the path of the created archive
+    """
     archive_path = do_pack()
 
     # if archive creation was unsuccessful, return False
