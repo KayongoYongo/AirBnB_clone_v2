@@ -85,8 +85,4 @@ def deploy():
     archive_path = do_pack()
 
     # if archive creation was unsuccessful, return False
-    if not archive_path:
-        return False
-
-    # call do_deploy with the new archive path and return its result
-    return do_deploy(archive_path)
+    return do_deploy(archive_path) if archive_path else False
